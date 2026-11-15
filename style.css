@@ -1,0 +1,1221 @@
+
+/* =========================================
+   1. GLOBAL STYLES AND COLOURS
+========================================= */
+
+:root {
+  --cream: #fff8e7;
+  --lav: #c9b6ee;
+  --lav-d: #9d84d6;
+  --yellow: #f8e08e;
+  --pink: #f2b8c6;
+  --brown: #6b4a3a;
+
+  --serif: "Playfair Display", serif;
+  --hand: "Patrick Hand", cursive;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background: var(--cream);
+  color: var(--brown);
+  font: 20px/1.4 var(--hand);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+}
+
+h1 {
+  font-size: clamp(26px, 5vw, 46px);
+  margin-bottom: 8px;
+}
+
+/* =========================================
+   2. PAGE STRUCTURE AND NAVIGATION
+========================================= */
+
+.page {
+  display: none;
+  min-height: 100vh;
+  padding: 24px 16px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.page.on {
+  display: flex;
+  animation: in 0.6s;
+}
+
+.page.leave {
+  animation: out 0.7s forwards;
+}
+
+.page::before,
+.page::after {
+  position: fixed;
+  color: var(--lav-d);
+  opacity: 0.55;
+  font-size: 26px;
+  pointer-events: none;
+}
+
+.page::before {
+  content: "✿ ♡ ✦";
+  top: 10px;
+  left: 14px;
+}
+
+.page::after {
+  content: "✦ ♡ ✿";
+  bottom: 10px;
+  right: 14px;
+}
+
+.sub {
+  justify-content: flex-start;
+  padding-top: 80px;
+}
+
+@keyframes in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+}
+
+@keyframes out {
+  to {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+}
+
+/* =========================================
+   3. BUTTONS
+========================================= */
+
+.btn {
+  border: 3px solid var(--brown);
+  background: var(--yellow);
+  color: var(--brown);
+  font: 700 20px var(--hand);
+  padding: 8px 22px;
+  border-radius: 30px;
+  box-shadow: 0 4px 0 var(--brown);
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.btn:hover {
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+.btn:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.nav {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nav .btn {
+  font-size: 16px;
+  padding: 5px 14px;
+}
+
+.empty {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.edit-only {
+  display: none !important;
+}
+
+.edit .edit-only {
+  display: inline-block !important;
+}
+
+.edit::after {
+  content: "✎ edit mode";
+  position: fixed;
+  bottom: 8px;
+  left: 8px;
+  background: var(--yellow);
+  padding: 2px 12px;
+  border-radius: 12px;
+  z-index: 99;
+}
+
+/* =========================================
+   4. BACKGROUND FLOATERS AND CONFETTI
+========================================= */
+
+#bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#bg span {
+  position: absolute;
+  bottom: -40px;
+  opacity: 0.45;
+  animation: up linear infinite;
+}
+
+@keyframes up {
+  to {
+    transform: translateY(-115vh) rotate(40deg);
+  }
+}
+
+.confetti {
+  position: fixed;
+  top: -20px;
+  width: 10px;
+  height: 14px;
+  z-index: 99;
+  pointer-events: none;
+  animation: fall var(--d) linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translate(var(--x), 105vh) rotate(720deg);
+  }
+}
+
+/* =========================================
+   5. PASSWORD LOCK SCREEN
+========================================= */
+
+.browser {
+  width: min(980px, 100%);
+  border: 6px solid var(--brown);
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 8px 8px 0 var(--pink);
+  z-index: 1;
+}
+
+.bar {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  padding: 10px 14px;
+  background: #eadfcf;
+}
+
+.bar i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e57373;
+}
+
+.bar i:nth-child(2) {
+  background: var(--yellow);
+}
+
+.bar i:nth-child(3) {
+  background: #8fd19e;
+}
+
+.bar span {
+  flex: 1;
+  height: 18px;
+  border-radius: 9px;
+  background: #fff;
+  margin-left: 12px;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.left,
+.right {
+  padding: 28px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+}
+
+.left {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--cream) 0 22px,
+    #fbeeb0 22px 44px
+  );
+}
+
+.left::before {
+  content: "★ ✿ ✦";
+  position: absolute;
+  top: 10px;
+  left: 14px;
+  color: var(--pink);
+  font-size: 22px;
+}
+
+.left::after {
+  content: "✦ ♡ ★";
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  color: var(--lav-d);
+  font-size: 22px;
+}
+
+.right {
+  color: #fff;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E"),
+    var(--lav);
+}
+
+.right h2 {
+  font-size: 30px;
+}
+
+.frame {
+  position: relative;
+  width: min(300px, 68vw);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.edit .frame {
+  cursor: pointer;
+}
+
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: 6%;
+  border-radius: 50%;
+  background: var(--lav);
+}
+
+.frame i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15%;
+  aspect-ratio: 1;
+  margin: -7.5%;
+  border-radius: 50%;
+  background: var(--lav);
+  transform: rotate(var(--a)) translateY(-293%);
+}
+
+.pic {
+  position: relative;
+  width: 76%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  background: var(--cream) center/cover;
+  display: grid;
+  place-items: center;
+  font-size: 64px;
+}
+
+#code {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#code b {
+  width: 34px;
+  height: 40px;
+  border: 3px solid #fff;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+
+#code.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  25% {
+    transform: translateX(-8px);
+  }
+
+  75% {
+    transform: translateX(8px);
+  }
+}
+
+#keys {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.k {
+  width: min(40px, 8.2vw);
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 50%;
+  background: #f3ecdf;
+  color: #a8261f;
+  font: 700 19px var(--hand);
+  box-shadow: 0 3px 0 #b9a98f;
+  cursor: pointer;
+}
+
+.k:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.k.w {
+  width: auto;
+  aspect-ratio: auto;
+  padding: 0 12px;
+  border-radius: 20px;
+  height: 34px;
+  font-size: 15px;
+}
+
+#err {
+  min-height: 1.4em;
+  color: #fff3a8;
+}
+
+/* =========================================
+   6. BIRTHDAY CAKE AND COUNTDOWN
+========================================= */
+
+#count {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#count div {
+  background: #fff;
+  border: 3px solid var(--lav);
+  border-radius: 14px;
+  padding: 6px 12px;
+  min-width: 72px;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+#count b {
+  display: block;
+  font: 700 28px var(--serif);
+}
+
+#wish {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  min-height: 1.6em;
+}
+
+#cake-svg {
+  max-width: 80vw;
+  height: auto;
+  animation: bob 4s ease-in-out infinite;
+}
+
+@keyframes bob {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.flame {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: flick 0.25s infinite alternate;
+  filter: drop-shadow(0 0 5px #ffd36a);
+}
+
+@keyframes flick {
+  to {
+    transform: scale(0.85, 1.1) skewX(6deg);
+  }
+}
+
+.out .flames {
+  display: none;
+}
+
+.smoke {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.out .smoke {
+  animation: smoke 2s forwards;
+}
+
+@keyframes smoke {
+  from {
+    opacity: 0.7;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-60px) scale(2.5);
+  }
+}
+
+#cake-svg.out {
+  filter: saturate(0.8) brightness(0.9);
+}
+
+#cake-svg.out .flame {
+  display: none;
+}
+
+#countdown-number {
+  font-family: var(--serif);
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--lav-d);
+  min-height: 75px;
+  animation: countdownPop 0.8s ease;
+}
+
+@keyframes countdownPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#after-message {
+  font-size: 23px;
+  font-weight: bold;
+  color: var(--brown);
+  animation: in 0.8s ease;
+}
+
+#after-message[hidden],
+#after[hidden] {
+  display: none !important;
+}
+
+#after {
+  margin-top: 12px;
+}
+
+/* =========================================
+   7. BIRTHDAY PAGE - CAKE LEFT, PHOTO RIGHT
+========================================= */
+
+#cake.page.on {
+  background: #fff0f4;
+  padding: 35px;
+}
+
+.birthday-layout {
+  width: min(1100px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 35px;
+}
+
+.birthday-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.birthday-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.birthday-photo-frame {
+  background: white;
+  padding: 15px 15px 35px;
+  width: min(390px, 100%);
+  border: 2px solid #f2b8c6;
+  box-shadow: 8px 10px 0 #e8a0b0;
+  transform: rotate(3deg);
+  position: relative;
+}
+
+.birthday-photo-frame img {
+  width: 100%;
+  height: 480px;
+  object-fit: contain;
+  display: block;
+  background: #fffaf5;
+}
+
+.birthday-photo-frame span {
+  display: block;
+  text-align: center;
+  font: 24px "Caveat", cursive;
+  color: #9d6475;
+  padding-top: 10px;
+}
+
+/* =========================================
+   8. SURPRISE MENU
+========================================= */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  max-width: 900px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.tile {
+  border: 3px solid var(--brown);
+  border-radius: 24px;
+  padding: 26px 16px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  box-shadow: 6px 6px 0 var(--brown);
+  transition: 0.25s;
+}
+
+.tile:hover {
+  transform: translateY(-8px) rotate(-2deg);
+}
+
+.tile span {
+  display: block;
+  font-size: 68px;
+  animation: bob 3s ease-in-out infinite;
+}
+
+.tile.y {
+  background: var(--yellow);
+}
+
+.tile.l {
+  background: var(--lav);
+}
+
+.tile.p {
+  background: var(--pink);
+}
+
+/* =========================================
+   9. GENERAL POLAROID GALLERIES
+========================================= */
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1000px;
+  padding: 20px 0;
+}
+
+.polaroid {
+  position: relative;
+  width: min(220px, 42vw);
+  background: #fff;
+  padding: 10px 10px 8px;
+  box-shadow: 0 6px 14px #0003;
+  transform: rotate(var(--r));
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.polaroid:hover {
+  transform: rotate(0) scale(1.07);
+  z-index: 2;
+}
+
+.polaroid img,
+.polaroid video {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.polaroid figcaption {
+  padding: 8px 2px 2px;
+  min-height: 2em;
+  outline: 0;
+}
+
+.polaroid .tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 70px;
+  height: 22px;
+  margin-left: -35px;
+  background: #f2b8c6aa;
+  transform: rotate(-4deg);
+}
+
+.polaroid:nth-child(even) .tape {
+  background: #f8e08eaa;
+}
+
+.vid::after {
+  content: "▶";
+  position: absolute;
+  inset: 10px 10px auto;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 48px;
+  text-shadow: 0 2px 8px #0008;
+  pointer-events: none;
+}
+
+.polaroid .x {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
+
+.x {
+  border: 2px solid var(--brown);
+  background: var(--pink);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  color: var(--brown);
+}
+
+/* Image and video popup */
+
+dialog {
+  border: 6px solid #fff;
+  border-radius: 12px;
+  padding: 0;
+  background: #fff;
+  max-width: 92vw;
+  max-height: 92vh;
+  margin: auto;
+  position: fixed;
+}
+
+dialog::backdrop {
+  background: #3b2a4acc;
+}
+
+dialog .x {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+}
+
+#lbbody img,
+#lbbody video {
+  display: block;
+  max-width: 90vw;
+  max-height: 78vh;
+}
+
+#lbcap {
+  padding: 8px;
+  text-align: center;
+}
+
+/* =========================================
+   10. MEMORY LANE - VINTAGE SCRAPBOOK
+========================================= */
+
+#memories.page {
+  background-color: #fff4dc !important;
+  background-image:
+    radial-gradient(#d9c5a2 1px, transparent 1px) !important;
+  background-size: 24px 24px !important;
+  border: 3px solid #e6d3b2;
+  border-radius: 22px;
+  padding: 80px 25px 55px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Inner dashed scrapbook border */
+
+#memories.page::before {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  border: 2px dashed #d8bd9b;
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scrapbook heading */
+
+#memories h1 {
+  position: relative;
+  display: inline-block;
+  font-family: "Caveat", cursive;
+  font-size: clamp(36px, 5vw, 50px);
+  color: #754653;
+  background: #fffdf5;
+  padding: 12px 30px;
+  border: 2px solid #e8c9a9;
+  border-radius: 10px 18px 10px 18px;
+  box-shadow: 3px 4px 0 #d9b9a0;
+  transform: rotate(-2deg);
+  z-index: 1;
+}
+
+#memories h1::before {
+  content: "♡";
+  position: absolute;
+  top: -18px;
+  left: -15px;
+  color: #d98da4;
+  font-size: 30px;
+}
+
+#memories h1::after {
+  content: "✿";
+  position: absolute;
+  bottom: -18px;
+  right: -15px;
+  color: #d9a65e;
+  font-size: 28px;
+}
+
+/* Subtitle */
+
+#memories > p {
+  font-family: "Patrick Hand", cursive;
+  color: #92745f;
+  font-size: 21px;
+  z-index: 1;
+}
+
+/* Memory Lane gallery */
+
+#memories .grid {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 42px 35px;
+  max-width: 1000px;
+  width: 100%;
+  padding: 35px 10px;
+  align-items: flex-start;
+  z-index: 1;
+}
+
+/* Polaroid frames */
+
+#memories .polaroid {
+  position: relative;
+  width: min(230px, 42vw);
+  padding: 12px 12px 38px;
+  background: #fffdf7;
+  border: 1px solid #f0e4d5;
+  box-shadow: 3px 7px 15px #75465340;
+  transition: transform 0.3s ease;
+}
+
+/* Tilted photographs */
+
+#memories .polaroid:nth-child(odd) {
+  transform: rotate(-3deg);
+}
+
+#memories .polaroid:nth-child(even) {
+  transform: rotate(3deg);
+}
+
+#memories .polaroid:hover {
+  transform: rotate(0deg) scale(1.06);
+  z-index: 3;
+}
+
+/* Photos */
+
+#memories .polaroid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  border: 1px solid #eee3d5;
+}
+
+/* Pastel washi tape */
+
+#memories .polaroid .tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  width: 75px;
+  height: 23px;
+  background: #d9c6f0cc;
+}
+
+#memories .polaroid:nth-child(even) .tape {
+  background: #ffe49dcc;
+}
+
+#memories .polaroid:nth-child(3n) .tape {
+  background: #b9dfd0cc;
+}
+
+/* Handwritten captions */
+
+#memories .polaroid figcaption {
+  font-family: "Caveat", cursive;
+  font-size: 22px;
+  color: #754653;
+  text-align: center;
+  padding-top: 12px;
+  min-height: 35px;
+}
+
+/* Tiny hearts on Polaroids */
+
+#memories .polaroid:nth-child(odd)::after {
+  content: "♡";
+  position: absolute;
+  bottom: 8px;
+  right: 13px;
+  color: #d98da4;
+  font-size: 20px;
+}
+
+/* =========================================
+   11. SCATTERED MEMORY LANE DOODLES
+========================================= */
+
+#memories .doodle {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+  animation: doodleFloat 4s ease-in-out infinite;
+}
+
+#memories .doodle-1 {
+  top: 16%;
+  left: 5%;
+  font-size: 35px;
+  transform: rotate(-20deg);
+}
+
+#memories .doodle-2 {
+  top: 28%;
+  right: 6%;
+  font-size: 32px;
+  transform: rotate(15deg);
+}
+
+#memories .doodle-3 {
+  top: 45%;
+  left: 3%;
+  font-size: 28px;
+}
+
+#memories .doodle-4 {
+  top: 62%;
+  right: 4%;
+  font-size: 35px;
+}
+
+#memories .doodle-5 {
+  top: 78%;
+  left: 12%;
+  font-size: 30px;
+}
+
+#memories .doodle-6 {
+  top: 40%;
+  right: 15%;
+  font-size: 28px;
+}
+
+#memories .doodle-7 {
+  top: 12%;
+  right: 28%;
+  font-size: 25px;
+}
+
+#memories .doodle-8 {
+  top: 85%;
+  right: 22%;
+  font-size: 30px;
+}
+
+@keyframes doodleFloat {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+/* =========================================
+   12. LETTER PAGE
+========================================= */
+
+.env {
+  width: 220px;
+  height: 130px;
+  background: var(--lav-d);
+  border-radius: 8px;
+  position: relative;
+  margin: 0 auto -60px;
+  z-index: 2;
+}
+
+.env::before {
+  content: "♡";
+  position: absolute;
+  inset: 0;
+  background: var(--lav);
+  clip-path: polygon(0 0, 100% 0, 50% 62%);
+  transform-origin: top;
+  display: grid;
+  place-items: start center;
+  padding-top: 20px;
+  color: #fff;
+  font-size: 26px;
+  animation: flap 1s 0.3s forwards;
+}
+
+@keyframes flap {
+  to {
+    transform: rotateX(180deg);
+    opacity: 0;
+  }
+}
+
+.paper {
+  width: min(640px, 100%);
+  padding: 42px 30px 30px;
+  background:
+    repeating-linear-gradient(
+      transparent 0 31px,
+      #e8dcc0 31px 32px
+    ),
+    #fffdf3;
+  border-radius: 6px;
+  box-shadow: 0 8px 20px #0003;
+  font: 500 28px/32px Caveat, cursive;
+  text-align: left;
+  position: relative;
+  animation: slide 1.2s 0.8s both;
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateY(-120px) scale(0.8);
+  }
+}
+
+#letter {
+  white-space: pre-wrap;
+  outline: 0;
+}
+
+.deco {
+  position: absolute;
+  right: 16px;
+  bottom: 8px;
+  color: var(--pink);
+}
+
+/* =========================================
+   13. MUSIC PLAYER
+========================================= */
+
+.player {
+  background: #fff;
+  border: 3px solid var(--lav);
+  border-radius: 20px;
+  padding: 16px 22px;
+  width: min(520px, 100%);
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.ctrl {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.ctrl input {
+  accent-color: var(--lav-d);
+}
+
+#seek {
+  flex: 1;
+}
+
+#vol {
+  width: 80px;
+}
+
+#play {
+  padding: 4px 16px;
+}
+
+.player.none .ctrl {
+  display: none;
+}
+
+.player:not(.none) #no-song {
+  display: none;
+}
+
+/* =========================================
+   14. RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 700px) {
+
+  /* Lock screen */
+
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  /* Birthday page */
+
+  #cake.page.on {
+    padding: 25px 15px;
+  }
+
+  .birthday-layout {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .birthday-photo-frame {
+    width: min(320px, 90%);
+  }
+
+  .birthday-photo-frame img {
+    height: 380px;
+  }
+
+  /* Memory Lane */
+
+  #memories.page {
+    padding: 75px 15px 45px;
+  }
+
+  #memories .grid {
+    gap: 35px 20px;
+  }
+
+  #memories .polaroid {
+    width: min(210px, 42vw);
+  }
+
+  #memories .doodle {
+    font-size: 24px;
+  }
+
+  /* Letter */
+
+  .paper {
+    padding: 35px 20px 25px;
+    font-size: 24px;
+  }
+}
+/* Back to surprises button */
+.page.sub .back-surprises {
+  position: fixed !important;
+  top: 20px !important;
+  right: 25px !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 99999;
+  background: #fffaf0;
+  color: #80664f;
+  border: 1px solid #d8c5a5;
+  border-radius: 25px;
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 2px 3px 0 #e5d5b9;
+}
+
+.page.sub .back-surprises:hover {
+  background: #f5e6c9;
+  transform: translateY(-2px);
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Happy Birthday Saisha ♡</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="bg"></div>
+
+  <!-- 1 · Password -->
+  <section class="page" id="lock">
+    <div class="browser">
+      <div class="bar"><i></i><i></i><i></i><span></span></div>
+      <div class="split">
+        <div class="left">
+          <h3>Our favourite human ♡</h3>
+          <div class="frame" id="frame"><div class="pic" id="her">🌸</div></div>
+        </div>
+        <div class="right">
+          <h2>Enter a passcode</h2>
+          <p>Only you know the secret... ♡</p>
+          <div id="code"></div>
+          <div id="keys"></div>
+          <button class="btn" id="unlock">Unlock Surprise</button>
+          <p id="err"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Countdown + cake -->
+  
+
+<!-- 2 · Birthday cake -->
+<section class="page" id="cake">
+  <div class="birthday-layout">
+
+    <!-- Left: Birthday cake and countdown -->
+    <div class="birthday-left">
+      <h1 id="hb"></h1>
+
+      <p id="wish">Blow the candles in...</p>
+      <div id="countdown-number" aria-live="polite">3</div>
+
+      <!-- Original birthday cake -->
+      <svg id="cake-svg" viewBox="0 0 240 220" width="300">
+        <ellipse cx="120" cy="208" rx="112" ry="9" fill="#6b4a3a22"/>
+        <rect x="30" y="130" width="180" height="72" rx="14" fill="#f2b8c6"/>
+        <rect x="55" y="85" width="130" height="50" rx="12" fill="#d8c8f2"/>
+        <path d="M30 150q15 18 30 0t30 0 30 0 30 0 30 0 30 0v-8H30z" fill="#fff8e7"/>
+        <path d="M55 105q16 16 32 0t32 0 32 0 32 0v-8H55z" fill="#fff8e7"/>
+
+        <circle cx="60" cy="178" r="5" fill="#f8e08e"/>
+        <circle cx="120" cy="182" r="5" fill="#f8e08e"/>
+        <circle cx="180" cy="178" r="5" fill="#f8e08e"/>
+
+        <g fill="#f8e08e" stroke="#6b4a3a" stroke-width="2">
+          <rect x="85" y="55" width="8" height="32"/>
+          <rect x="116" y="55" width="8" height="32"/>
+          <rect x="147" y="55" width="8" height="32"/>
+        </g>
+
+        <g class="flames" fill="#ffb347">
+          <ellipse class="flame" cx="89" cy="44" rx="6" ry="11"/>
+          <ellipse class="flame" cx="120" cy="44" rx="6" ry="11"/>
+          <ellipse class="flame" cx="151" cy="44" rx="6" ry="11"/>
+        </g>
+
+        <g fill="#bbb">
+          <circle class="smoke" cx="89" cy="40" r="5"/>
+          <circle class="smoke" cx="120" cy="40" r="5"/>
+          <circle class="smoke" cx="151" cy="40" r="5"/>
+        </g>
+      </svg>
+
+      <p id="after-message" hidden>
+        Make a wish, Saishuu! Hope all your dreams come true ♡
+      </p>
+
+      <div id="after" hidden>
+        <button class="btn" data-go="menu">Open your surprises ♡</button>
+      </div>
+    </div>
+
+    <!-- Right: Saishuu's photo -->
+    <div class="birthday-right">
+      <div class="birthday-photo-frame">
+        <img src="assets/img18.jpeg" alt="Our group photo">
+        <span>♡ Birthday girl ♡</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+  <!-- 3 · Surprise menu -->
+  <section class="page" id="menu">
+    <h1>A little something for you ♡</h1>
+    <p>I've prepared a few little surprises. Choose whichever one you want to open first!</p>
+    <div class="cards">
+      <button class="tile y" data-go="memories"><span>📸</span><h2>Our Memories</h2><p>A little collection of our favourite moments.</p></button>
+      <button class="tile l" data-go="letter-page"><span>💌</span><h2>A Letter For You</h2><p>Some things I wanted to tell you.</p></button>
+      <button class="tile p" data-go="videos"><span>🎞️</span><h2>Videos &amp; Music</h2><p>Little clips, favourite songs and moments.</p></button>
+    </div>
+  </section>
+
+  <!-- 4 · Memories -->
+<section class="page sub" id="memories">
+      <span class="doodle doodle-1">✿</span>
+      <span class="doodle doodle-2">♡</span>
+      <span class="doodle doodle-3">✧</span>
+      <span class="doodle doodle-4">🦋</span>
+      <span class="doodle doodle-5">❀</span>
+      <span class="doodle doodle-6">🎀</span>
+      <span class="doodle doodle-7">✦</span>
+      <span class="doodle doodle-8">♡</span>
+      <span class="doodle doodle-6">🎀</span>
+      <span class="doodle doodle-2">♡</span>
+      <span class="doodle doodle-3">✧</span>
+    <h1>A little trip down memory lane ♡</h1>
+    <p>Some moments I wish I could relive forever.</p>
+    <div class="grid" id="photos"></div>
+    <button class="btn edit-only" data-add="photos">+ Add photos</button>
+    <button class="back-surprises" data-go="menu">← Back to surprises</button>
+  </section>
+
+  <!-- 5 · Letter -->
+  <section class="page sub" id="letter-page">
+    <h1>To my favourite person ♡</h1>
+    <div class="env"></div>
+    <article class="paper"><div id="letter"></div><span class="deco">✿ ♡ ✿</span></article>
+        <button class="back-surprises" data-go="menu">← Back to surprises</button>
+  </section>
+
+  <!-- 6 · Videos & music -->
+  <section class="page sub" id="videos">
+    <h1>Our little movie collection 🎞️</h1>
+    <div class="grid" id="clips"></div>
+    <button class="btn edit-only" data-add="clips">+ Add videos</button>
+    <div class="player" id="player">
+      <p>Trust me geet baja you will love it!!♡</p>
+      <div class="ctrl">
+        <button class="btn" id="play">▶</button>
+        <input type="range" id="seek" value="0" max="100" aria-label="Progress">
+        <span>🔊</span><input type="range" id="vol" min="0" max="1" step=".05" value=".8" aria-label="Volume">
+      </div>
+      <audio id="aud"></audio>
+      <p class="empty" id="no-song">No song yet ♪</p>
+      <button class="btn edit-only" id="add-song">Upload MP3</button>
+    </div>
+      <button class="back-surprises" data-go="menu">← Back to surprises</button>
+
+  </section>
+
+  <dialog id="lb"><button class="x">✕</button><div id="lbbody"></div><p id="lbcap"></p></dialog>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
